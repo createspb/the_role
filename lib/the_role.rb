@@ -6,7 +6,6 @@ require 'the_role/version'
 require 'the_role/param_helper'
 require 'the_role/activerecord'
 
-
 module TheRole
   class << self
     def user_model

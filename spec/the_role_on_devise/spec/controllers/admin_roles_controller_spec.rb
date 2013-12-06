@@ -46,5 +46,36 @@ describe Admin::RolesController do
       end
     end
 
+    describe "Creating of role" do
+      before(:each) do
+        @admin_role = FactoryGirl.create(:admin)
+        @admin      = FactoryGirl.create(:user, role: @admin_role)
+        sign_in @admin
+      end
+
+      it "Validation errors on create" do
+        Role.count.should eq 1
+        post :create, { role: { wrong_param: 1 } }
+
+        Role.count.should eq 1
+        expect(response).to render_template :new
+      end
+
+      it "Success create" do
+        Role.count.should eq 1
+        post :create, { role: { name: :test, title: :test, description: :test } }
+
+        Role.count.should eq 2
+        Role.last.admin?.should be_false
+      end
+
+      it "Success create based on Admin" do
+        Role.count.should eq 1
+        post :create, { role: { name: :test, title: :test, description: :test }, based_on: @admin_role.id }
+
+        Role.count.should eq 2
+        Role.last.admin?.should be_true
+      end
+    end
   end
 end

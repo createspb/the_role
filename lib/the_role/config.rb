@@ -14,8 +14,8 @@ module TheRole
                     :user_model,
                     :default_user_role,
                     :dependent_destroy,
+                    :default_path_for_redirect,
                     :first_user_should_be_admin
-                    
   end
 
   configure do |config|
@@ -24,5 +24,6 @@ module TheRole
     config.first_user_should_be_admin = false
     config.user_model                 = :user
     config.dependent_destroy          = :restrict_with_exception
+    config.default_path_for_redirect  = "/"
   end
 end

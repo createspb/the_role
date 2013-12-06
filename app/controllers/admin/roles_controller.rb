@@ -2,7 +2,7 @@ class Admin::RolesController < ApplicationController
   include TheRoleController
   layout TheRole.config.layout.to_s
 
-  before_filter :login_required
+  # before_filter :login_required
   before_filter :role_required
 
   before_filter :role_find,      only: [:edit, :update, :destroy, :change]
@@ -22,6 +22,10 @@ class Admin::RolesController < ApplicationController
     @role = Role.new role_params
 
     if @role.save
+      if !params[:based_on].blank? && (@base_role = Role.find params[:based_on])
+        @role.update_role @base_role.to_hash
+      end
+
       flash[:notice] = t 'the_role.role_created'
       redirect_to_edit
     else

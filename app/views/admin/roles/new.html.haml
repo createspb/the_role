@@ -22,4 +22,8 @@
         %label= t('.description')
         %p= f.text_field :description, class: "form-control"
 
+        %label= t('.based_on')
+        - opts = options_from_collection_for_select(Role.all, :id, :title)
+        %p= select_tag :based_on, opts, prompt: "Empty role", class: "form-control"
+
         = f.submit t('.create'), class: "btn btn-success"

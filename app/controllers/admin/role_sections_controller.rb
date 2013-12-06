@@ -2,7 +2,7 @@ class Admin::RoleSectionsController < ApplicationController
   include TheRoleController
   layout TheRole.config.layout.to_s
 
-  before_filter :login_required
+  # before_filter :login_required
   before_filter :role_required
 
   before_filter :section_rule_names, only: [:rule_on, :rule_off, :destroy_rule]
