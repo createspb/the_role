@@ -2,7 +2,7 @@ class Admin::RolesController < ApplicationController
   include TheRoleController
   layout TheRole.config.layout.to_s
 
-  # before_filter :login_required
+  before_filter :login_required
   before_filter :role_required
 
   before_filter :role_find,      only: [:edit, :update, :destroy, :change]

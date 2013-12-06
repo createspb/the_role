@@ -1,6 +1,10 @@
 module TheRoleController
   private
 
+  def login_required
+    send TheRole.config.auth_method
+  end
+
   def role_access_denied
     flash[:error] = t('the_role.access_denied')
     redirect_to TheRole.config.default_path_for_redirect
